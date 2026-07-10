@@ -1,0 +1,86 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Subbly
+providerId: subbly
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Subscriptions
+- Subscription Commerce
+- Ecommerce
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Subbly spend. Subbly bills as a SaaS subscription-commerce
+  platform: a fixed monthly platform fee per plan tier plus a Subbly transaction
+  fee taken as a percentage of each processed transaction, on top of the
+  underlying payment processor's fees (Stripe, PayPal/Braintree, Auth.net). The
+  developer surface (SubblyCart.js, the Subbly.js SDK, the Orders API, and
+  webhooks) is included in the platform subscription and is not separately
+  metered. The dominant variable cost is the transaction fee, so cost scales
+  with processed order/subscription volume; annual billing lowers the fixed
+  platform fee by roughly 25%.
+notes: >-
+  Per-unit rates are grounded in the Subbly pricing page as of 2026-07-10 and
+  may change; verify at https://www.subbly.co/pricing. Total cost of processing
+  also includes payment-processor fees that Subbly does not collect. There is no
+  usage-metered API charge to model - API access is bundled with the plan.
+sources:
+- https://www.subbly.co/pricing
+- https://support.subbly.co/faq/pricing-structure-and-applicable-transaction-fees-on-subbly
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Subbly
+serviceCategory: Ecommerce and Subscription Commerce
+billingModel:
+  pricingCategory: Subscription-Plus-Usage
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+focusColumns:
+  ServiceName: Subbly Subscription Commerce Platform
+  ServiceCategory: Ecommerce and Subscription Commerce
+  ProviderName: Subbly
+  PublisherName: Subbly
+  InvoiceIssuerName: Subbly
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Plus-Usage
+meters:
+- name: platform_fee
+  description: Fixed monthly platform fee for the selected Subbly plan tier.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: transaction_fee
+  description: Subbly transaction fee taken as a percentage of each processed transaction, on top of payment-processor fees.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - processor
+  - plan
+principles:
+- name: Visibility
+  description: Track the fixed platform fee separately from the percentage transaction fee, and separate both from the underlying payment-processor fees.
+- name: Allocation
+  description: Attribute transaction-fee spend to product lines or storefronts by tagging orders and subscriptions in the Subbly admin.
+- name: Optimization
+  description: Move to annual billing to cut the platform fee, and step up plan tiers (or to Subbly X) as volume grows since higher tiers carry lower transaction-fee percentages.
+- name: Accountability
+  description: Review monthly platform plus transaction fees against processed subscription revenue to keep effective take-rate in view.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

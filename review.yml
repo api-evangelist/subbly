@@ -1,0 +1,116 @@
+aid: subbly
+name: Subbly
+review:
+  question: Does Subbly expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-10'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Subbly's documented developer surface is
+    the client-side SubblyCart.js widget and the Subbly.js SDK (@subbly/sdk),
+    both of which talk to Subbly's backend over request/response REST/HTTPS.
+    Subbly's event delivery to external systems is via configurable outbound
+    HTTP webhooks set up in the Subbly admin, not a server-push WebSocket or SSE
+    transport on Subbly's own API. There is no bidirectional or streaming
+    WebSocket endpoint on Subbly to model, so no AsyncAPI document was created.
+findings:
+  summary: |
+    Subbly does not publish a documented public WebSocket API. Subbly is a
+    subscription-first commerce platform (subscription boxes, memberships,
+    recurring products). Its documented developer tools are the SubblyCart.js
+    embeddable cart widget (loaded from https://assets.subbly.co/cart/cart-widget.js
+    and configured client-side with a public apiKey) and the Subbly.js SDK
+    (npm @subbly/sdk), a browser-side JavaScript client that calls Subbly's REST
+    backend to manage products, bundles, carts, checkout/purchase, customers
+    (auth, profiles, addresses, wallet), and subscriptions. Subbly also offers a
+    public Orders API for direct 3PL / fulfillment integration - documentation
+    is provided by Subbly on request rather than published openly - and an in-app
+    webhook platform for order and subscription events. All of these surfaces are
+    request/response HTTP; none is a realtime WebSocket (ws:// or wss://) API.
+  accessModel: |
+    Real but only partially open. Subbly documents its SDK operations at
+    docs.subbly.dev and its developer portal at subbly.dev, but it does NOT
+    publish concrete REST endpoint paths, a base API host, or an OpenAPI
+    definition - the SDK abstracts the underlying calls. Authentication for the
+    storefront SDK is via an apiKey issued in the Subbly admin (Shop Settings),
+    with optional customer access tokens. The Orders API is access-gated
+    (docs on request from Subbly support). Webhooks are configured in-app with no
+    published event catalog or payload schema.
+  transports:
+    - protocol: REST
+      scheme: https
+      documented: partially
+      note: The Subbly.js SDK and SubblyCart.js call a REST backend, but Subbly does not publish endpoint paths, a base host, or an OpenAPI contract.
+    - protocol: Webhook
+      scheme: https
+      documented: partially
+      note: Outbound HTTP webhooks for order/subscription events are configured in the Subbly admin. Server-to-endpoint HTTP, not WebSocket. No public event schema.
+    - protocol: Orders API (3PL)
+      scheme: https
+      documented: on-request
+      note: A real public Orders API exists for 3PL/fulfillment integration; Subbly provides its documentation on request rather than publishing it.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Subbly's developer docs, SDK reference, or help center as of the review date.
+  endpointsConfirmedRest: []
+  endpointsModeled:
+    note: |
+      Subbly does not publish REST endpoint paths or a base host; the paths below
+      are MODELED from the documented Subbly.js SDK operations to give the catalog
+      a workable shape. They are illustrative, not an official Subbly REST contract.
+    paths:
+      - GET  /products
+      - GET  /products/{id}
+      - GET  /products/{id}/variants
+      - GET  /bundles
+      - GET  /bundles/{id}/items
+      - POST /bundles/{id}/quote
+      - POST /carts
+      - GET  /carts/{id}
+      - PATCH /carts/{id}
+      - POST /carts/{id}/items
+      - POST /checkout
+      - POST /customers
+      - POST /customers/sessions
+      - GET  /customers/{id}
+      - PATCH /customers/{id}
+      - GET  /customers/{id}/addresses
+      - POST /customers/{id}/addresses
+      - GET  /customers/{id}/payment-methods
+      - GET  /subscriptions
+      - GET  /subscriptions/{id}
+      - PATCH /subscriptions/{id}
+sources:
+  - url: https://www.subbly.dev/
+    type: DeveloperPortal
+    note: Subbly developer portal - subscription API, SDK, open-sourced templates; points to docs.subbly.dev; mentions public Orders API and webhook platform.
+  - url: https://docs.subbly.dev/
+    type: Documentation
+    note: Docs home. Reference splits into SubblyCart.js (/reference/cart/) and Subbly.js SDK (/reference/subbly-sdk/).
+  - url: https://docs.subbly.dev/reference/subbly-sdk/
+    type: Documentation
+    note: Subbly.js SDK (@subbly/sdk). Documents products, bundles, cart, customers (auth/profiles/addresses/wallet), checkout/purchase, and subscriptions; calls a REST backend; endpoint paths/host not published.
+  - url: https://docs.subbly.dev/reference/cart/
+    type: Documentation
+    note: SubblyCart.js client-side cart widget methods and events; apiKey configured client-side.
+  - url: https://docs.subbly.dev/docs/installation/
+    type: Documentation
+    note: Installation guide; cart widget loaded from https://assets.subbly.co/cart/cart-widget.js with window.subblyConfig.apiKey.
+  - url: https://www.subbly.co/product
+    type: Documentation
+    note: Product/features page; states Subbly has APIs and a webhook platform for integrations.
+  - url: https://www.subbly.co/pricing
+    type: Pricing
+    note: Plan pricing and Subbly transaction fees.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Subbly. Subbly's own API is
+    request/response HTTP - a partially documented REST backend behind the
+    Subbly.js SDK / SubblyCart.js, an access-gated Orders API for 3PL
+    integration, and admin-configured outbound webhooks. No AsyncAPI document
+    was created because there is no server-push transport on Subbly's own API to
+    model.

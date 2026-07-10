@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "Subbly Storefront API (Modeled)",
+    "description": "MODELED Postman collection for Subbly's storefront developer surface. Subbly (subscription-first commerce platform) documents the SubblyCart.js widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend. Subbly does NOT publish concrete REST endpoint paths, a base host, or an OpenAPI definition, so the requests below are modeled from the documented SDK operations and are illustrative, not an official Subbly REST contract. The baseUrl and apiKey header are placeholders. The public Orders API (3PL) is documented by Subbly on request and is not included; webhooks are configured in the Subbly admin. Docs: https://docs.subbly.dev/ and https://www.subbly.dev/",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "X-Subbly-Api-Key", "type": "string" },
+      { "key": "value", "value": "{{apiKey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.subbly.example/v1", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List products (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] },
+            "description": "Lists storefront products. Modeled from the Subbly.js SDK products methods."
+          }
+        },
+        {
+          "name": "Get a product (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a product. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "List product variants (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products/:id/variants", "host": ["{{baseUrl}}"], "path": ["products", ":id", "variants"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists the variants of a product. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "List bundles (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/bundles", "host": ["{{baseUrl}}"], "path": ["bundles"] },
+            "description": "Lists bundle products. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Generate a bundle quote (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"items\": [\n    { \"productId\": \"\", \"quantity\": 1 }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/bundles/:id/quote", "host": ["{{baseUrl}}"], "path": ["bundles", ":id", "quote"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Generates a price quote for a configured bundle. Modeled from the SDK."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "Create a cart (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/carts", "host": ["{{baseUrl}}"], "path": ["carts"] },
+            "description": "Creates a new cart. Modeled from the SDK / SubblyCart.js."
+          }
+        },
+        {
+          "name": "Get a cart (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/carts/:id", "host": ["{{baseUrl}}"], "path": ["carts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Loads a cart by ID. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Update a cart (modeled)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"couponCode\": \"\",\n  \"shippingMethodId\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/carts/:id", "host": ["{{baseUrl}}"], "path": ["carts", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a cart (items, coupons, gift cards, shipping method, gifting date). Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Add a cart item (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"productId\": \"\",\n  \"quantity\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/carts/:id/items", "host": ["{{baseUrl}}"], "path": ["carts", ":id", "items"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Adds an item to the cart. Modeled from the SDK / SubblyCart.js addItem."
+          }
+        },
+        {
+          "name": "Checkout and purchase (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"cartId\": \"\",\n  \"customerId\": \"\",\n  \"paymentMethodId\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/checkout", "host": ["{{baseUrl}}"], "path": ["checkout"] },
+            "description": "Processes checkout and purchase, including payment intent handling with 3DS. Modeled from the SDK."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Register a customer (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"\",\n  \"password\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] },
+            "description": "Registers a new customer. Modeled from the SDK auth methods."
+          }
+        },
+        {
+          "name": "Authenticate a customer (modeled)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"\",\n  \"password\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/customers/sessions", "host": ["{{baseUrl}}"], "path": ["customers", "sessions"] },
+            "description": "Authenticates a customer (password, OTP, social) and returns an access token. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Get a customer (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers/:id", "host": ["{{baseUrl}}"], "path": ["customers", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a customer profile. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "List customer addresses (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers/:id/addresses", "host": ["{{baseUrl}}"], "path": ["customers", ":id", "addresses"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists a customer's saved addresses. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "List customer payment methods (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers/:id/payment-methods", "host": ["{{baseUrl}}"], "path": ["customers", ":id", "payment-methods"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Lists a customer's stored payment methods / wallet. Modeled from the SDK."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscriptions",
+      "item": [
+        {
+          "name": "List subscriptions (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/subscriptions", "host": ["{{baseUrl}}"], "path": ["subscriptions"] },
+            "description": "Lists the authenticated customer's subscriptions. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Get a subscription (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/subscriptions/:id", "host": ["{{baseUrl}}"], "path": ["subscriptions", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Loads a subscription by ID. Modeled from the SDK."
+          }
+        },
+        {
+          "name": "Update a subscription (modeled)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"\",\n  \"bundleSelections\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/subscriptions/:id", "host": ["{{baseUrl}}"], "path": ["subscriptions", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates a subscription, including bundle selections and survey preferences. Modeled from the SDK."
+          }
+        }
+      ]
+    }
+  ]
+}

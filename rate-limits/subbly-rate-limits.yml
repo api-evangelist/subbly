@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Subbly
+providerId: subbly
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Subscriptions
+- Ecommerce
+- SDK
+- Rate Limiting
+- Quotas
+description: >-
+  Subbly does not publish numeric rate limits for its developer surface. The
+  storefront developer tools - SubblyCart.js and the Subbly.js SDK - call
+  Subbly's REST backend authenticated with a shop apiKey (and optional customer
+  access token), but Subbly documents neither the endpoint paths nor any
+  per-key request-rate or quota limits. The public Orders API (3PL integration)
+  is access-gated and its limits, if any, would be shared by Subbly when the
+  documentation is provided on request. Webhook delivery volume tracks the shop's
+  order and subscription activity rather than a published cap.
+notes: >-
+  No numeric per-key, per-endpoint, or per-account limits are documented as of
+  the review date. Treat any limits as unknown, implement exponential backoff
+  with jitter, and honor Retry-After on 429 responses. Confirm limits with Subbly
+  support, especially for the Orders API, during reconciliation.
+sources:
+- https://docs.subbly.dev/reference/subbly-sdk/
+- https://docs.subbly.dev/reference/cart/
+- https://www.subbly.dev/
+responseCodes:
+  throttled: 429
+limits:
+- name: Storefront SDK / Cart Requests
+  scope: apiKey
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for SubblyCart.js or the Subbly.js SDK backend.
+- name: Orders API (3PL)
+  scope: account
+  metric: requests
+  limit: not published
+  notes: Access-gated Orders API; any limits would be shared by Subbly with the on-request documentation.
+- name: Webhook Delivery
+  scope: account
+  metric: events
+  limit: not published
+  notes: Outbound webhook volume follows the shop's order/subscription events; no published cap.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429 responses.
+- name: Client-Side Key Exposure
+  description: The SubblyCart.js / SDK apiKey is a public storefront key configured client-side; do not embed secret server credentials in the browser.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

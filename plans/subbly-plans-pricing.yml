@@ -1,0 +1,232 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Subbly
+providerId: subbly
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Subscriptions
+- Subscription Commerce
+- Ecommerce
+- Recurring Billing
+- Plans
+description: >-
+  Subbly is priced as a SaaS subscription-commerce platform, not as a metered
+  API. Merchants pay a monthly platform fee per plan tier, plus a Subbly
+  transaction fee taken as a percentage of each processed transaction, on top of
+  the underlying payment processor's fees (Stripe, PayPal/Braintree, Auth.net).
+  The developer surface - SubblyCart.js, the Subbly.js SDK, the public Orders
+  API, and webhooks - is included with the platform subscription and is not
+  separately metered or billed. Annual billing is discounted (roughly 25% off,
+  described by Subbly as about three months free).
+notes: >-
+  Prices below are grounded in the Subbly pricing page and the pricing/transaction
+  fee help-center article as of 2026-07-10 and may change - verify at
+  https://www.subbly.co/pricing during reconciliation. Monthly figures are the
+  standard month-to-month rate; the annual-billing effective monthly rate is
+  noted per tier. Subbly transaction fees are in addition to payment-processor
+  fees. Some tiers also carry a small fixed per-transaction component
+  (for example +$0.19 on Lite, +$0.15 on higher tiers) per the pricing page.
+sources:
+- https://www.subbly.co/pricing
+- https://support.subbly.co/faq/pricing-structure-and-applicable-transaction-fees-on-subbly
+- https://www.subbly.co/lite-plan
+plans:
+- id: subbly-lite
+  name: Lite
+  type: paid
+  description: >-
+    Entry no-code plan to start selling subscriptions. Standard rate $19/month
+    (about $14.25/month billed annually, $171/year).
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $19/month (or ~$14.25/month billed annually)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (Stripe)
+    name: txn_fee_stripe
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2% per transaction (plus a small fixed per-transaction fee; on top of processor fees)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (PayPal/Braintree)
+    name: txn_fee_paypal
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2.25% per transaction (on top of processor fees)
+    userMultiplied: false
+  elements:
+  - name: No-Code Storefront and Checkout
+  - name: SubblyCart.js and Subbly.js SDK
+  - name: Webhooks
+- id: subbly-basic
+  name: Basic
+  type: paid
+  description: >-
+    Standard rate $39/month (about $29.25/month billed annually, $351/year).
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $39/month (or ~$29.25/month billed annually)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (Stripe)
+    name: txn_fee_stripe
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% per transaction (plus a small fixed per-transaction fee; on top of processor fees)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (PayPal/Braintree)
+    name: txn_fee_paypal
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1.25% per transaction (on top of processor fees)
+    userMultiplied: false
+  elements:
+  - name: Everything in Lite
+  - name: Additional Features and Higher Limits
+- id: subbly-subbly
+  name: Subbly
+  type: paid
+  description: >-
+    Mid tier. Standard rate $79/month (about $59.25/month billed annually,
+    $711/year).
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $79/month (or ~$59.25/month billed annually)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (Stripe)
+    name: txn_fee_stripe
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% per transaction (plus a small fixed per-transaction fee; on top of processor fees)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (PayPal/Braintree)
+    name: txn_fee_paypal
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1.25% per transaction (on top of processor fees)
+    userMultiplied: false
+  elements:
+  - name: Everything in Basic
+  - name: Advanced Subscription Features
+- id: subbly-advanced
+  name: Advanced
+  type: paid
+  description: >-
+    Standard rate $159/month (about $119.25/month billed annually, $1,431/year).
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $159/month (or ~$119.25/month billed annually)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (Stripe)
+    name: txn_fee_stripe
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% per transaction (plus a small fixed per-transaction fee; on top of processor fees)
+    userMultiplied: false
+  - label: Subbly Transaction Fee (PayPal/Braintree)
+    name: txn_fee_paypal
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% per transaction (on top of processor fees)
+    userMultiplied: false
+  elements:
+  - name: Everything in Subbly
+  - name: Highest Standard-Tier Limits
+- id: subbly-x
+  name: Subbly X (Enterprise)
+  type: enterprise
+  description: >-
+    High-volume enterprise tier from $499/month with fully customizable
+    checkout, unlimited feature access, a dedicated account manager, AI Labs
+    access, multi-site contracts, and the lowest transaction fees.
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $499/month (custom)
+    userMultiplied: false
+  - label: Subbly Transaction Fee
+    name: txn_fee
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 0.25% to 1% per transaction (on top of processor fees)
+    userMultiplied: false
+  elements:
+  - name: Fully Customizable Checkout
+  - name: Dedicated Account Manager and Slack Access
+  - name: Lowest Transaction Fees
+  - name: AI Labs and AI Features
+  - name: Multi-Site Contracts
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

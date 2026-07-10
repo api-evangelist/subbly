@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subbly Storefront API (Modeled)",
+    "version": "0.1.0-modeled",
+    "description": "MODELED Open Collection for Subbly's storefront developer surface (SubblyCart.js + Subbly.js SDK). Subbly does not publish REST endpoint paths, a base host, or an OpenAPI definition; requests are modeled from the documented SDK operations and are illustrative, not an official Subbly contract. The Orders API (3PL) is documented by Subbly on request and is not included. Docs: https://docs.subbly.dev/"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": { "key": "X-Subbly-Api-Key", "value": "{{apiKey}}", "in": "header" }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Products", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List products (modeled).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.subbly.example/v1/products" },
+          "docs": "Lists storefront products. Modeled from the Subbly.js SDK."
+        },
+        {
+          "info": { "name": "Get a product (modeled).", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/products/:id",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The product ID." } ]
+          },
+          "docs": "Retrieves a product. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "List bundles (modeled).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.subbly.example/v1/bundles" },
+          "docs": "Lists bundle products. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "Generate a bundle quote (modeled).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/bundles/:id/quote",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The bundle ID." } ],
+            "body": { "type": "json", "data": "{\"items\":[{\"productId\":\"\",\"quantity\":1}]}" }
+          },
+          "docs": "Generates a price quote for a configured bundle. Modeled from the SDK."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Cart", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a cart (modeled).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.subbly.example/v1/carts", "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new cart. Modeled from the SDK / SubblyCart.js."
+        },
+        {
+          "info": { "name": "Get a cart (modeled).", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/carts/:id",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The cart ID." } ]
+          },
+          "docs": "Loads a cart by ID. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "Add a cart item (modeled).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/carts/:id/items",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The cart ID." } ],
+            "body": { "type": "json", "data": "{\"productId\":\"\",\"quantity\":1}" }
+          },
+          "docs": "Adds an item to the cart. Modeled from the SDK / SubblyCart.js addItem."
+        },
+        {
+          "info": { "name": "Checkout and purchase (modeled).", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/checkout",
+            "body": { "type": "json", "data": "{\"cartId\":\"\",\"customerId\":\"\",\"paymentMethodId\":\"\"}" }
+          },
+          "docs": "Processes checkout and purchase with 3DS handling. Modeled from the SDK."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Customers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Register a customer (modeled).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.subbly.example/v1/customers", "body": { "type": "json", "data": "{\"email\":\"\",\"password\":\"\"}" } },
+          "docs": "Registers a new customer. Modeled from the SDK auth methods."
+        },
+        {
+          "info": { "name": "Authenticate a customer (modeled).", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.subbly.example/v1/customers/sessions", "body": { "type": "json", "data": "{\"email\":\"\",\"password\":\"\"}" } },
+          "docs": "Authenticates a customer and returns an access token. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "Get a customer (modeled).", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/customers/:id",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The customer ID." } ]
+          },
+          "docs": "Retrieves a customer profile. Modeled from the SDK."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Subscriptions", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List subscriptions (modeled).", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.subbly.example/v1/subscriptions" },
+          "docs": "Lists the authenticated customer's subscriptions. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "Get a subscription (modeled).", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/subscriptions/:id",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The subscription ID." } ]
+          },
+          "docs": "Loads a subscription by ID. Modeled from the SDK."
+        },
+        {
+          "info": { "name": "Update a subscription (modeled).", "type": "http" },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.subbly.example/v1/subscriptions/:id",
+            "params": [ { "name": "id", "value": "", "type": "path", "description": "The subscription ID." } ],
+            "body": { "type": "json", "data": "{\"status\":\"\",\"bundleSelections\":[]}" }
+          },
+          "docs": "Updates a subscription including bundle selections and survey preferences. Modeled from the SDK."
+        }
+      ]
+    }
+  ]
+}

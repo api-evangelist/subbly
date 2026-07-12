@@ -150,6 +150,10 @@ apis:
     than via a published subscription API, and Subbly does not publish a formal
     event catalog or payload schema, so no webhook schemas are modeled here.
 common:
+- type: DomainSecurity
+  url: security/subbly-domain-security.yml
+- type: Authentication
+  url: authentication/subbly-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/subbly
 - type: Website

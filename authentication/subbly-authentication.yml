@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/subbly-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: X-Subbly-Api-Key
+  description: Modeled. Subbly's storefront SDK is configured with an apiKey issued in the Subbly
+    admin (Shop Settings). The exact header/parameter name is not published by Subbly.
+  sources:
+  - openapi/subbly-openapi.yml

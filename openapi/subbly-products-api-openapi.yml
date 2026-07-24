@@ -1,0 +1,227 @@
+openapi: 3.0.3
+info:
+  title: Subbly Storefront API (Modeled) Cart Products API
+  description: MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.
+  version: 0.1.0-modeled
+  contact:
+    name: Subbly Developers
+    url: https://www.subbly.dev/
+servers:
+- url: https://api.subbly.example/v1
+  description: Modeled placeholder base URL. Subbly does not publish its REST API host; the Subbly.js SDK resolves the real host internally. Do not treat this as a live endpoint.
+security:
+- apiKey: []
+tags:
+- name: Products
+  description: Storefront products and bundles (modeled from the SDK).
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      tags:
+      - Products
+      summary: List products
+      description: Lists storefront products. Modeled from the Subbly.js SDK products methods.
+      responses:
+        '200':
+          description: A list of products.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /products/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getProduct
+      tags:
+      - Products
+      summary: Get a product
+      description: Retrieves a product (including parent products / variants). Modeled from the SDK.
+      responses:
+        '200':
+          description: The requested product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /products/{id}/variants:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listProductVariants
+      tags:
+      - Products
+      summary: List product variants
+      description: Lists the variants of a product. Modeled from the SDK.
+      responses:
+        '200':
+          description: A list of variants.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+  /bundles:
+    get:
+      operationId: listBundles
+      tags:
+      - Products
+      summary: List bundles
+      description: Lists bundle products. Modeled from the SDK bundle methods.
+      responses:
+        '200':
+          description: A list of bundles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bundle'
+  /bundles/{id}/items:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getBundleItems
+      tags:
+      - Products
+      summary: Get bundle items
+      description: Retrieves the items available for a bundle. Modeled from the SDK.
+      responses:
+        '200':
+          description: Bundle items.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+  /bundles/{id}/quote:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: quoteBundle
+      tags:
+      - Products
+      summary: Generate a bundle quote
+      description: Generates a price quote for a configured bundle. Modeled from the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleQuoteInput'
+      responses:
+        '200':
+          description: The bundle quote.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key / access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Bundle:
+      type: object
+      description: A bundle product (modeled).
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        minItems:
+          type: integer
+        maxItems:
+          type: integer
+    Quote:
+      type: object
+      description: A computed price quote (modeled).
+      properties:
+        total:
+          type: integer
+        currency:
+          type: string
+    BundleQuoteInput:
+      type: object
+      description: Selected items to quote for a bundle (modeled).
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+              quantity:
+                type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    Product:
+      type: object
+      description: A storefront product or variant (modeled).
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: For example one_time or subscription.
+        price:
+          type: integer
+          description: Price in the smallest currency unit.
+        currency:
+          type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Subbly-Api-Key
+      description: Modeled. Subbly's storefront SDK is configured with an apiKey issued in the Subbly admin (Shop Settings). The exact header/parameter name is not published by Subbly.

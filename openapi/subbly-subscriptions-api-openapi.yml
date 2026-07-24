@@ -1,0 +1,147 @@
+openapi: 3.0.3
+info:
+  title: Subbly Storefront API (Modeled) Cart Subscriptions API
+  description: MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.
+  version: 0.1.0-modeled
+  contact:
+    name: Subbly Developers
+    url: https://www.subbly.dev/
+servers:
+- url: https://api.subbly.example/v1
+  description: Modeled placeholder base URL. Subbly does not publish its REST API host; the Subbly.js SDK resolves the real host internally. Do not treat this as a live endpoint.
+security:
+- apiKey: []
+tags:
+- name: Subscriptions
+  description: Customer subscriptions and preferences (modeled from the SDK).
+paths:
+  /subscriptions:
+    get:
+      operationId: listSubscriptions
+      tags:
+      - Subscriptions
+      summary: List subscriptions
+      description: Lists the authenticated customer's subscriptions. Modeled from the SDK.
+      responses:
+        '200':
+          description: A list of subscriptions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /subscriptions/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getSubscription
+      tags:
+      - Subscriptions
+      summary: Get a subscription
+      description: Loads a subscription by ID. Modeled from the SDK.
+      responses:
+        '200':
+          description: The requested subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateSubscription
+      tags:
+      - Subscriptions
+      summary: Update a subscription
+      description: Updates a subscription, including bundle selections and survey / preference management. Modeled from the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionInput'
+      responses:
+        '200':
+          description: The updated subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key / access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SubscriptionInput:
+      type: object
+      description: Subscription update fields (modeled).
+      properties:
+        status:
+          type: string
+        bundleSelections:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+              quantity:
+                type: integer
+        surveyAnswers:
+          type: object
+          additionalProperties: true
+    Subscription:
+      type: object
+      description: A customer subscription (modeled).
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        productId:
+          type: string
+        nextBillingDate:
+          type: string
+          format: date
+        interval:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Subbly-Api-Key
+      description: Modeled. Subbly's storefront SDK is configured with an apiKey issued in the Subbly admin (Shop Settings). The exact header/parameter name is not published by Subbly.

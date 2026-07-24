@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: Subbly Storefront API (Modeled) Cart Customers API
+  description: MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.
+  version: 0.1.0-modeled
+  contact:
+    name: Subbly Developers
+    url: https://www.subbly.dev/
+servers:
+- url: https://api.subbly.example/v1
+  description: Modeled placeholder base URL. Subbly does not publish its REST API host; the Subbly.js SDK resolves the real host internally. Do not treat this as a live endpoint.
+security:
+- apiKey: []
+tags:
+- name: Customers
+  description: Customer accounts, addresses, and payment methods (modeled from the SDK).
+paths:
+  /customers:
+    post:
+      operationId: registerCustomer
+      tags:
+      - Customers
+      summary: Register a customer
+      description: Registers a new customer. Modeled from the SDK auth methods.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '201':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/sessions:
+    post:
+      operationId: authenticateCustomer
+      tags:
+      - Customers
+      summary: Authenticate a customer
+      description: Authenticates a customer (password login, OTP, social login) and returns an access token. Modeled from the SDK auth methods.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthInput'
+      responses:
+        '200':
+          description: An access token and customer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  customer:
+                    $ref: '#/components/schemas/Customer'
+  /customers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getCustomer
+      tags:
+      - Customers
+      summary: Get a customer
+      description: Retrieves a customer profile. Modeled from the SDK.
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCustomer
+      tags:
+      - Customers
+      summary: Update a customer
+      description: Updates a customer profile. Modeled from the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '200':
+          description: The updated customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/{id}/addresses:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerAddresses
+      tags:
+      - Customers
+      summary: List customer addresses
+      description: Lists a customer's saved addresses. Modeled from the SDK.
+      responses:
+        '200':
+          description: A list of addresses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Address'
+    post:
+      operationId: createCustomerAddress
+      tags:
+      - Customers
+      summary: Create a customer address
+      description: Adds a saved address to a customer. Modeled from the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+      responses:
+        '201':
+          description: The created address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+  /customers/{id}/payment-methods:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerPaymentMethods
+      tags:
+      - Customers
+      summary: List customer payment methods
+      description: Lists a customer's stored payment methods / wallet. Modeled from the SDK.
+      responses:
+        '200':
+          description: A list of payment methods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentMethod'
+components:
+  schemas:
+    Address:
+      type: object
+      description: A customer address (modeled).
+      properties:
+        id:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    AuthInput:
+      type: object
+      description: Customer authentication request (modeled).
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        otp:
+          type: string
+        provider:
+          type: string
+          description: For social login, for example google or facebook.
+    Customer:
+      type: object
+      description: A customer account (modeled).
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    PaymentMethod:
+      type: object
+      description: A stored payment method / wallet entry (modeled).
+      properties:
+        id:
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
+        expMonth:
+          type: integer
+        expYear:
+          type: integer
+    CustomerInput:
+      type: object
+      description: Customer create / update fields (modeled).
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Subbly-Api-Key
+      description: Modeled. Subbly's storefront SDK is configured with an apiKey issued in the Subbly admin (Shop Settings). The exact header/parameter name is not published by Subbly.

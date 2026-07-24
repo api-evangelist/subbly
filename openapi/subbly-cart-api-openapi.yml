@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Subbly Storefront API (Modeled) Cart API
+  description: MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.
+  version: 0.1.0-modeled
+  contact:
+    name: Subbly Developers
+    url: https://www.subbly.dev/
+servers:
+- url: https://api.subbly.example/v1
+  description: Modeled placeholder base URL. Subbly does not publish its REST API host; the Subbly.js SDK resolves the real host internally. Do not treat this as a live endpoint.
+security:
+- apiKey: []
+tags:
+- name: Cart
+  description: Cart and checkout operations (modeled from the SDK and SubblyCart.js).
+paths:
+  /carts:
+    post:
+      operationId: createCart
+      tags:
+      - Cart
+      summary: Create a cart
+      description: Creates a new cart. Modeled from the SDK / SubblyCart.js.
+      responses:
+        '201':
+          description: The created cart.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+  /carts/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getCart
+      tags:
+      - Cart
+      summary: Get a cart
+      description: Loads a cart by ID. Modeled from the SDK.
+      responses:
+        '200':
+          description: The requested cart.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCart
+      tags:
+      - Cart
+      summary: Update a cart
+      description: Updates a cart (items, coupons, gift cards, shipping method, gifting date). Modeled from the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartInput'
+      responses:
+        '200':
+          description: The updated cart.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+  /carts/{id}/items:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: addCartItem
+      tags:
+      - Cart
+      summary: Add a cart item
+      description: Adds an item to the cart. Modeled from the SDK / SubblyCart.js addItem.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemInput'
+      responses:
+        '200':
+          description: The updated cart.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+  /checkout:
+    post:
+      operationId: checkout
+      tags:
+      - Cart
+      summary: Checkout and purchase
+      description: Processes checkout and purchase for a cart, including payment intent handling with 3DS verification. Modeled from the SDK purchase flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutInput'
+      responses:
+        '200':
+          description: The resulting order / purchase confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '402':
+          description: Payment required or requires further (3DS) action.
+components:
+  schemas:
+    Order:
+      type: object
+      description: A resulting order / purchase (modeled).
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        total:
+          type: integer
+        currency:
+          type: string
+    Cart:
+      type: object
+      description: A shopping cart (modeled).
+      properties:
+        id:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItemInput'
+        couponCode:
+          type: string
+        giftCardCode:
+          type: string
+        shippingMethodId:
+          type: string
+        total:
+          type: integer
+        currency:
+          type: string
+    CartInput:
+      type: object
+      description: Updatable cart fields (modeled).
+      properties:
+        couponCode:
+          type: string
+        giftCardCode:
+          type: string
+        shippingMethodId:
+          type: string
+        giftingDate:
+          type: string
+          format: date
+    CartItemInput:
+      type: object
+      description: A cart line item (modeled).
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    CheckoutInput:
+      type: object
+      description: Checkout / purchase request (modeled).
+      properties:
+        cartId:
+          type: string
+        customerId:
+          type: string
+        paymentMethodId:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-Subbly-Api-Key
+      description: Modeled. Subbly's storefront SDK is configured with an apiKey issued in the Subbly admin (Shop Settings). The exact header/parameter name is not published by Subbly.

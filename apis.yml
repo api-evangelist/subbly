@@ -17,7 +17,20 @@ description: >-
   definition; the SDK abstracts the underlying endpoints, so the API surface
   modeled here is derived from the documented SDK operations and is flagged as
   modeled.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/subbly.png
 tags:
 - Subscriptions
 - Subscription Commerce
@@ -31,86 +44,6 @@ created: '2026-07-10'
 modified: '2026-07-10'
 specificationVersion: '0.19'
 apis:
-- aid: subbly:subbly-products-api
-  name: Subbly Products API
-  tags:
-  - Products
-  - Bundles
-  - Catalog
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
-  properties:
-  - url: https://docs.subbly.dev/reference/subbly-sdk/
-    type: Documentation
-  - url: https://www.subbly.dev/
-    type: APIReference
-  - url: openapi/subbly-openapi.yml
-    type: OpenAPI
-  description: >-
-    List storefront products, load product variants and parent products, and
-    work with bundles (load bundles, retrieve bundle items, and generate bundle
-    quotes). Surfaced through the Subbly.js SDK; the concrete REST endpoint
-    paths and host are not published by Subbly, so the endpoints here are
-    modeled from the documented SDK operations.
-- aid: subbly:subbly-subscriptions-api
-  name: Subbly Subscriptions API
-  tags:
-  - Subscriptions
-  - Recurring
-  - Memberships
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
-  properties:
-  - url: https://docs.subbly.dev/reference/subbly-sdk/
-    type: Documentation
-  - url: openapi/subbly-openapi.yml
-    type: OpenAPI
-  description: >-
-    Load and update a customer's subscriptions, including bundle selections and
-    survey / preference management for subscription products. Surfaced through
-    the Subbly.js SDK; endpoints are modeled from the documented SDK operations
-    because Subbly does not publish REST endpoint paths.
-- aid: subbly:subbly-customers-api
-  name: Subbly Customers API
-  tags:
-  - Customers
-  - Accounts
-  - Addresses
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
-  properties:
-  - url: https://docs.subbly.dev/reference/subbly-sdk/
-    type: Documentation
-  - url: openapi/subbly-openapi.yml
-    type: OpenAPI
-  description: >-
-    Register and authenticate customers (password login, OTP, social login,
-    email verification), retrieve and update customer profiles, manage saved
-    addresses, and manage stored payment methods / wallet. Surfaced through the
-    Subbly.js SDK; endpoints are modeled because Subbly does not publish the
-    underlying REST reference.
-- aid: subbly:subbly-cart-checkout-api
-  name: Subbly Cart and Checkout API
-  tags:
-  - Cart
-  - Checkout
-  - Payments
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.subbly.dev/reference/cart/
-  properties:
-  - url: https://docs.subbly.dev/reference/cart/
-    type: Documentation
-  - url: https://docs.subbly.dev/docs/installation/
-    type: Documentation
-  - url: openapi/subbly-openapi.yml
-    type: OpenAPI
-  description: >-
-    Build and drive checkout - create and update carts, add / update / remove
-    items, apply coupons and gift cards, set shipping methods and gifting dates,
-    process checkout and purchase, and handle payment intents with 3DS
-    verification. The client-side SubblyCart.js widget (loaded from
-    assets.subbly.co) and the Subbly.js SDK are documented; the server-side REST
-    endpoints they call are not published and are modeled here.
 - aid: subbly:subbly-orders-api
   name: Subbly Orders API
   tags:
@@ -125,11 +58,10 @@ apis:
   - url: https://support.subbly.co/app-store/how-does-the-ship-station-integration-work
     type: Documentation
   description: >-
-    Public Orders API for integrating Subbly orders directly with any
-    third-party logistics (3PL) / fulfillment provider. Subbly states it will
-    provide the Orders API documentation on request rather than publishing it
-    openly, so this is a real but access-gated API - no endpoints are modeled
-    here because Subbly's request/response contract is not publicly documented.
+    Public Orders API for integrating Subbly orders directly with any third-party logistics (3PL) / fulfillment
+    provider. Subbly states it will provide the Orders API documentation on request rather than publishing
+    it openly, so this is a real but access-gated API - no endpoints are modeled here because Subbly's
+    request/response contract is not publicly documented.
 - aid: subbly:subbly-webhooks
   name: Subbly Webhooks
   tags:
@@ -144,11 +76,78 @@ apis:
   - url: https://www.subbly.co/all-features
     type: Documentation
   description: >-
-    In-app webhook platform that notifies external and internal services of
-    Subbly events (order and subscription lifecycle) with configurable
-    conditions and variables. Webhooks are configured in the Subbly admin rather
-    than via a published subscription API, and Subbly does not publish a formal
-    event catalog or payload schema, so no webhook schemas are modeled here.
+    In-app webhook platform that notifies external and internal services of Subbly events (order and subscription
+    lifecycle) with configurable conditions and variables. Webhooks are configured in the Subbly admin
+    rather than via a published subscription API, and Subbly does not publish a formal event catalog or
+    payload schema, so no webhook schemas are modeled here.
+- aid: subbly:subbly-cart-api
+  name: Subbly Cart API
+  description: Cart and checkout operations (modeled from the SDK and SubblyCart.js).
+  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
+  tags:
+  - Cart
+  properties:
+  - type: OpenAPI
+    url: openapi/subbly-cart-api-openapi.yml
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/subbly-sdk/
+  - type: APIReference
+    url: https://www.subbly.dev/
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/cart/
+  - type: Documentation
+    url: https://docs.subbly.dev/docs/installation/
+- aid: subbly:subbly-customers-api
+  name: Subbly Customers API
+  description: Customer accounts, addresses, and payment methods (modeled from the SDK).
+  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/subbly-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/subbly-sdk/
+  - type: APIReference
+    url: https://www.subbly.dev/
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/cart/
+  - type: Documentation
+    url: https://docs.subbly.dev/docs/installation/
+- aid: subbly:subbly-products-api
+  name: Subbly Products API
+  description: Storefront products and bundles (modeled from the SDK).
+  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/subbly-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/subbly-sdk/
+  - type: APIReference
+    url: https://www.subbly.dev/
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/cart/
+  - type: Documentation
+    url: https://docs.subbly.dev/docs/installation/
+- aid: subbly:subbly-subscriptions-api
+  name: Subbly Subscriptions API
+  description: Customer subscriptions and preferences (modeled from the SDK).
+  humanURL: https://docs.subbly.dev/reference/subbly-sdk/
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/subbly-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/subbly-sdk/
+  - type: APIReference
+    url: https://www.subbly.dev/
+  - type: Documentation
+    url: https://docs.subbly.dev/reference/cart/
+  - type: Documentation
+    url: https://docs.subbly.dev/docs/installation/
 common:
 - type: AgenticAccess
   url: agentic-access/subbly-agentic-access.yml

@@ -1,0 +1,20 @@
+{
+  "provider": "subbly",
+  "sources": [
+    "subbly-cart-api-openapi.yml",
+    "subbly-customers-api-openapi.yml",
+    "subbly-products-api-openapi.yml",
+    "subbly-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "subbly-cart-api-openapi.yml",
+    "subbly-customers-api-openapi.yml",
+    "subbly-products-api-openapi.yml",
+    "subbly-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,657 @@
+{
+  "item": [
+    {
+      "id": "78aed922-0247-4b2b-8485-e341f3f22363",
+      "name": "Cart",
+      "description": {
+        "content": "Cart and checkout operations (modeled from the SDK and SubblyCart.js).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d3274db-2e0d-496a-9bcf-c625a1472bd1",
+          "name": "Create a cart",
+          "request": {
+            "name": "Create a cart",
+            "description": {
+              "content": "Creates a new cart. Modeled from the SDK / SubblyCart.js.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "carts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "076e558f-8bf0-4aa7-9c19-ba3c8220cecf",
+              "name": "The created cart.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "carts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"items\": [\n    {\n      \"productId\": \"string\",\n      \"quantity\": 5365\n    },\n    {\n      \"productId\": \"string\",\n      \"quantity\": 6209\n    }\n  ],\n  \"couponCode\": \"string\",\n  \"giftCardCode\": \"string\",\n  \"shippingMethodId\": \"string\",\n  \"total\": 6095,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f7844c0-ad03-4701-99f1-41a1b45da270",
+          "name": "Get a cart",
+          "request": {
+            "name": "Get a cart",
+            "description": {
+              "content": "Loads a cart by ID. Modeled from the SDK.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "carts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "813c93c5-bde6-4614-8085-8b3a45d28604",
+              "name": "The requested cart.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "carts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"items\": [\n    {\n      \"productId\": \"string\",\n      \"quantity\": 7586\n    },\n    {\n      \"productId\": \"string\",\n      \"quantity\": 6681\n    }\n  ],\n  \"couponCode\": \"string\",\n  \"giftCardCode\": \"string\",\n  \"shippingMethodId\": \"string\",\n  \"total\": 8753,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdc73b83-b7d4-45d9-a372-d2f76135e2c8",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "carts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbec35ba-1aaf-4cde-a7e4-0939ae8a8a39",
+          "name": "Update a cart",
+          "request": {
+            "name": "Update a cart",
+            "description": {
+              "content": "Updates a cart (items, coupons, gift cards, shipping method, gifting date). Modeled from the SDK.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "carts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponCode\": \"<string>\",\n  \"giftCardCode\": \"<string>\",\n  \"shippingMethodId\": \"<string>\",\n  \"giftingDate\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fac1cb27-9b64-4032-a546-03aa453d6d13",
+              "name": "The updated cart.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "carts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"couponCode\": \"<string>\",\n  \"giftCardCode\": \"<string>\",\n  \"shippingMethodId\": \"<string>\",\n  \"giftingDate\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"items\": [\n    {\n      \"productId\": \"string\",\n      \"quantity\": 7586\n    },\n    {\n      \"productId\": \"string\",\n      \"quantity\": 6681\n    }\n  ],\n  \"couponCode\": \"string\",\n  \"giftCardCode\": \"string\",\n  \"shippingMethodId\": \"string\",\n  \"total\": 8753,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ea8f0db-3cd8-4dc0-b81d-6ef7322ae992",
+          "name": "Add a cart item",
+          "request": {
+            "name": "Add a cart item",
+            "description": {
+              "content": "Adds an item to the cart. Modeled from the SDK / SubblyCart.js addItem.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "carts",
+                ":id",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"<string>\",\n  \"quantity\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e69b0143-f924-4f0b-9e48-8c1b7f9c5767",
+              "name": "The updated cart.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "carts",
+                    ":id",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productId\": \"<string>\",\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"items\": [\n    {\n      \"productId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"productId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ],\n  \"couponCode\": \"string\",\n  \"giftCardCode\": \"string\",\n  \"shippingMethodId\": \"string\",\n  \"total\": 9977,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95d7333b-0f7f-42be-a0d7-b4f1997d69b7",
+          "name": "Checkout and purchase",
+          "request": {
+            "name": "Checkout and purchase",
+            "description": {
+              "content": "Processes checkout and purchase for a cart, including payment intent handling with 3DS verification. Modeled from the SDK purchase flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cartId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"paymentMethodId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5c5bdb4-176b-455c-a726-ee0b4406d376",
+              "name": "The resulting order / purchase confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cartId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"paymentMethodId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"string\",\n  \"total\": 2385,\n  \"currency\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "453c7a37-dbbf-45e4-86e7-097ebf93b40a",
+              "name": "Payment required or requires further (3DS) action.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Subbly-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cartId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"paymentMethodId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.subbly.example/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Subbly-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "918ea75a-c3a0-4026-83be-faf701b40552",
+    "name": "Subbly Storefront API (Modeled) Cart API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.\n\nContact Support:\n Name: Subbly Developers",
+      "type": "text/plain"
+    }
+  }
+}

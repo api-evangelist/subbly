@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subbly Storefront API (Modeled) Cart Subscriptions API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Subbly-Api-Key",
+      "value": "{{X-Subbly-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/subscriptions"
+          },
+          "docs": "Lists the authenticated customer's subscriptions. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Get a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Loads a subscription by ID. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.subbly.example/v1/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a subscription, including bundle selections and survey / preference management. Modeled from the SDK."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

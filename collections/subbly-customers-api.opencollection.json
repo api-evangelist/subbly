@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subbly Storefront API (Modeled) Cart Customers API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Subbly-Api-Key",
+      "value": "{{X-Subbly-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new customer. Modeled from the SDK auth methods."
+        },
+        {
+          "info": {
+            "name": "Authenticate a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/customers/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a customer (password login, OTP, social login) and returns an access token. Modeled from the SDK auth methods."
+        },
+        {
+          "info": {
+            "name": "Get a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a customer profile. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Update a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.subbly.example/v1/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a customer profile. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "List customer addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/customers/:id/addresses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Lists a customer's saved addresses. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Create a customer address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/customers/:id/addresses",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a saved address to a customer. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "List customer payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/customers/:id/payment-methods",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Lists a customer's stored payment methods / wallet. Modeled from the SDK."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

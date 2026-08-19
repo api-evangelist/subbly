@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subbly Storefront API (Modeled) Cart Products API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Subbly-Api-Key",
+      "value": "{{X-Subbly-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/products"
+          },
+          "docs": "Lists storefront products. Modeled from the Subbly.js SDK products methods."
+        },
+        {
+          "info": {
+            "name": "Get a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a product (including parent products / variants). Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "List product variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/products/:id/variants",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Lists the variants of a product. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "List bundles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/bundles"
+          },
+          "docs": "Lists bundle products. Modeled from the SDK bundle methods."
+        },
+        {
+          "info": {
+            "name": "Get bundle items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/bundles/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the items available for a bundle. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Generate a bundle quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/bundles/:id/quote",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a price quote for a configured bundle. Modeled from the SDK."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

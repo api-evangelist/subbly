@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Subbly Storefront API (Modeled) Cart API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Subbly-Api-Key",
+      "value": "{{X-Subbly-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/carts"
+          },
+          "docs": "Creates a new cart. Modeled from the SDK / SubblyCart.js."
+        },
+        {
+          "info": {
+            "name": "Get a cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.subbly.example/v1/carts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ]
+          },
+          "docs": "Loads a cart by ID. Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Update a cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.subbly.example/v1/carts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a cart (items, coupons, gift cards, shipping method, gifting date). Modeled from the SDK."
+        },
+        {
+          "info": {
+            "name": "Add a cart item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/carts/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an item to the cart. Modeled from the SDK / SubblyCart.js addItem."
+        },
+        {
+          "info": {
+            "name": "Checkout and purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.subbly.example/v1/checkout",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Processes checkout and purchase for a cart, including payment intent handling with 3DS verification. Modeled from the SDK purchase flow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

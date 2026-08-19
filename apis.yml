@@ -42,7 +42,7 @@ tags:
 - Webhooks
 created: '2026-07-10'
 modified: '2026-07-10'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: subbly:subbly-orders-api
   name: Subbly Orders API

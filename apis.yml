@@ -32,6 +32,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/subbly.png
 tags:
+- Subscription
+- Subscription Commerce
+- E-Commerce
+- Subscription Box
+- Recurring Billing
+- Headless Commerce
+- SDK
+- Webhook
+tags_raw:
 - Subscriptions
 - Subscription Commerce
 - Ecommerce
@@ -47,6 +56,10 @@ apis:
 - aid: subbly:subbly-orders-api
   name: Subbly Orders API
   tags:
+  - Order
+  - Fulfillment
+  - 3PL
+  tags_raw:
   - Orders
   - Fulfillment
   - 3PL
@@ -65,6 +78,10 @@ apis:
 - aid: subbly:subbly-webhooks
   name: Subbly Webhooks
   tags:
+  - Webhook
+  - Event
+  - Automation
+  tags_raw:
   - Webhooks
   - Events
   - Automation
@@ -119,6 +136,8 @@ apis:
   description: Storefront products and bundles (modeled from the SDK).
   humanURL: https://docs.subbly.dev/reference/subbly-sdk/
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -136,6 +155,8 @@ apis:
   description: Customer subscriptions and preferences (modeled from the SDK).
   humanURL: https://docs.subbly.dev/reference/subbly-sdk/
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI

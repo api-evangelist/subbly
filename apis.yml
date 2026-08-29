@@ -17,6 +17,18 @@ description: >-
   definition; the SDK abstracts the underlying endpoints, so the API surface
   modeled here is derived from the documented SDK operations and is flagged as
   modeled.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve

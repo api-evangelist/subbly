@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Subbly Storefront API (Modeled) Cart Customers API
-  description: MODELED OpenAPI for Subbly's storefront developer surface. Subbly is a subscription-first commerce platform. Its documented developer tools are the client-side SubblyCart.js cart widget and the Subbly.js SDK (@subbly/sdk), which call Subbly's REST backend to manage products, bundles, carts, checkout, customers, and subscriptions. Subbly does NOT publish concrete REST endpoint paths, a base API host, or an official OpenAPI definition - the SDK abstracts them. The paths and schemas below are therefore MODELED from the documented SDK operations to give the catalog a workable shape; they are illustrative and are not an official Subbly REST contract. The public Orders API (3PL integration) is documented by Subbly on request and is not modeled here, and Subbly's webhooks are configured in the admin without a published payload schema. Authentication for the storefront SDK uses an apiKey issued in the Subbly admin (Shop Settings), optionally with a per-customer access token.
+  title: Subbly Storefront API (Modeled) Customers API
+  description: MODELED OpenAPI for Subbly's storefront developer surface.
   version: 0.1.0-modeled
   contact:
     name: Subbly Developers
@@ -160,24 +160,6 @@ paths:
                       $ref: '#/components/schemas/PaymentMethod'
 components:
   schemas:
-    Address:
-      type: object
-      description: A customer address (modeled).
-      properties:
-        id:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
     AuthInput:
       type: object
       description: Customer authentication request (modeled).
@@ -191,32 +173,6 @@ components:
         provider:
           type: string
           description: For social login, for example google or facebook.
-    Customer:
-      type: object
-      description: A customer account (modeled).
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-    PaymentMethod:
-      type: object
-      description: A stored payment method / wallet entry (modeled).
-      properties:
-        id:
-          type: string
-        brand:
-          type: string
-        last4:
-          type: string
-        expMonth:
-          type: integer
-        expYear:
-          type: integer
     CustomerInput:
       type: object
       description: Customer create / update fields (modeled).
@@ -239,13 +195,50 @@ components:
               type: string
             message:
               type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    PaymentMethod:
+      type: object
+      description: A stored payment method / wallet entry (modeled).
+      properties:
+        id:
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
+        expMonth:
+          type: integer
+        expYear:
+          type: integer
+    Customer:
+      type: object
+      description: A customer account (modeled).
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    Address:
+      type: object
+      description: A customer address (modeled).
+      properties:
+        id:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
   parameters:
     Id:
       name: id
@@ -254,6 +247,13 @@ components:
       description: The resource identifier.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

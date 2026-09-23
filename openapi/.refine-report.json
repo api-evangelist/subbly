@@ -1,10 +1,7 @@
 {
   "provider": "subbly",
   "sources": [
-    "subbly-cart-api-openapi.yml",
-    "subbly-customers-api-openapi.yml",
-    "subbly-products-api-openapi.yml",
-    "subbly-subscriptions-api-openapi.yml"
+    "_original/subbly-openapi.yml"
   ],
   "outputs": [
     "subbly-cart-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "subbly-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "subbly-cart-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "subbly-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "subbly-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "subbly-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

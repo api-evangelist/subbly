@@ -139,49 +139,6 @@ paths:
                 $ref: '#/components/schemas/Quote'
 components:
   schemas:
-    BundleQuoteInput:
-      type: object
-      description: Selected items to quote for a bundle (modeled).
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              productId:
-                type: string
-              quantity:
-                type: integer
-    Quote:
-      type: object
-      description: A computed price quote (modeled).
-      properties:
-        total:
-          type: integer
-        currency:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-    Bundle:
-      type: object
-      description: A bundle product (modeled).
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        minItems:
-          type: integer
-        maxItems:
-          type: integer
     Product:
       type: object
       description: A storefront product or variant (modeled).
@@ -198,14 +155,49 @@ components:
           description: Price in the smallest currency unit.
         currency:
           type: string
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: string
+    Quote:
+      type: object
+      description: A computed price quote (modeled).
+      properties:
+        total:
+          type: integer
+        currency:
+          type: string
+    BundleQuoteInput:
+      type: object
+      description: Selected items to quote for a bundle (modeled).
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+              quantity:
+                type: integer
+    Bundle:
+      type: object
+      description: A bundle product (modeled).
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        minItems:
+          type: integer
+        maxItems:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key / access token.
@@ -219,6 +211,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

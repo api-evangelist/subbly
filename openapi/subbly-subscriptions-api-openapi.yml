@@ -75,14 +75,14 @@ paths:
                 $ref: '#/components/schemas/Subscription'
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid API key / access token.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid API key / access token.
       content:
         application/json:
           schema:
@@ -96,6 +96,31 @@ components:
       schema:
         type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    Subscription:
+      type: object
+      description: A customer subscription (modeled).
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        productId:
+          type: string
+        nextBillingDate:
+          type: string
+          format: date
+        interval:
+          type: string
     SubscriptionInput:
       type: object
       description: Subscription update fields (modeled).
@@ -114,31 +139,6 @@ components:
         surveyAnswers:
           type: object
           additionalProperties: true
-    Subscription:
-      type: object
-      description: A customer subscription (modeled).
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        productId:
-          type: string
-        nextBillingDate:
-          type: string
-          format: date
-        interval:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
   securitySchemes:
     apiKey:
       type: apiKey

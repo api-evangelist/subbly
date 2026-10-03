@@ -160,6 +160,20 @@ paths:
                       $ref: '#/components/schemas/PaymentMethod'
 components:
   schemas:
+    PaymentMethod:
+      type: object
+      description: A stored payment method / wallet entry (modeled).
+      properties:
+        id:
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
+        expMonth:
+          type: integer
+        expYear:
+          type: integer
     AuthInput:
       type: object
       description: Customer authentication request (modeled).
@@ -185,38 +199,6 @@ components:
           type: string
         lastName:
           type: string
-    PaymentMethod:
-      type: object
-      description: A stored payment method / wallet entry (modeled).
-      properties:
-        id:
-          type: string
-        brand:
-          type: string
-        last4:
-          type: string
-        expMonth:
-          type: integer
-        expYear:
-          type: integer
-    Address:
-      type: object
-      description: A customer address (modeled).
-      properties:
-        id:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
     Customer:
       type: object
       description: A customer account (modeled).
@@ -239,6 +221,31 @@ components:
               type: string
             message:
               type: string
+    Address:
+      type: object
+      description: A customer address (modeled).
+      properties:
+        id:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Id:
       name: id
@@ -247,13 +254,6 @@ components:
       description: The resource identifier.
       schema:
         type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

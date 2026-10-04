@@ -183,6 +183,9 @@ apis:
   - type: Documentation
     url: https://docs.subbly.dev/docs/installation/
 common:
+- type: CapabilityMap
+  url: capabilities/subbly-capability-edges.yml
+  name: Subbly Business Capability Map
 - type: AgenticAccess
   url: agentic-access/subbly-agentic-access.yml
 - type: DomainSecurity

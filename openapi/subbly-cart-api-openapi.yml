@@ -134,6 +134,19 @@ components:
           type: string
         paymentMethodId:
           type: string
+    CartInput:
+      type: object
+      description: Updatable cart fields (modeled).
+      properties:
+        couponCode:
+          type: string
+        giftCardCode:
+          type: string
+        shippingMethodId:
+          type: string
+        giftingDate:
+          type: string
+          format: date
     CartItemInput:
       type: object
       description: A cart line item (modeled).
@@ -172,19 +185,6 @@ components:
               type: string
             message:
               type: string
-    CartInput:
-      type: object
-      description: Updatable cart fields (modeled).
-      properties:
-        couponCode:
-          type: string
-        giftCardCode:
-          type: string
-        shippingMethodId:
-          type: string
-        giftingDate:
-          type: string
-          format: date
   responses:
     NotFound:
       description: The requested resource was not found.

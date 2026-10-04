@@ -138,32 +138,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Quote'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key / access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Bundle:
+    Quote:
       type: object
-      description: A bundle product (modeled).
+      description: A computed price quote (modeled).
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        minItems:
+        total:
           type: integer
-        maxItems:
-          type: integer
+        currency:
+          type: string
     BundleQuoteInput:
       type: object
       description: Selected items to quote for a bundle (modeled).
@@ -177,6 +160,16 @@ components:
                 type: string
               quantity:
                 type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
     Product:
       type: object
       description: A storefront product or variant (modeled).
@@ -193,24 +186,31 @@ components:
           description: Price in the smallest currency unit.
         currency:
           type: string
-    Quote:
+    Bundle:
       type: object
-      description: A computed price quote (modeled).
+      description: A bundle product (modeled).
       properties:
-        total:
-          type: integer
-        currency:
+        id:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
+        name:
+          type: string
+        minItems:
+          type: integer
+        maxItems:
+          type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key / access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Id:
       name: id

@@ -160,33 +160,6 @@ paths:
                       $ref: '#/components/schemas/PaymentMethod'
 components:
   schemas:
-    PaymentMethod:
-      type: object
-      description: A stored payment method / wallet entry (modeled).
-      properties:
-        id:
-          type: string
-        brand:
-          type: string
-        last4:
-          type: string
-        expMonth:
-          type: integer
-        expYear:
-          type: integer
-    AuthInput:
-      type: object
-      description: Customer authentication request (modeled).
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-        otp:
-          type: string
-        provider:
-          type: string
-          description: For social login, for example google or facebook.
     CustomerInput:
       type: object
       description: Customer create / update fields (modeled).
@@ -199,28 +172,6 @@ components:
           type: string
         lastName:
           type: string
-    Customer:
-      type: object
-      description: A customer account (modeled).
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
     Address:
       type: object
       description: A customer address (modeled).
@@ -239,6 +190,55 @@ components:
           type: string
         country:
           type: string
+    AuthInput:
+      type: object
+      description: Customer authentication request (modeled).
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        otp:
+          type: string
+        provider:
+          type: string
+          description: For social login, for example google or facebook.
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    Customer:
+      type: object
+      description: A customer account (modeled).
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    PaymentMethod:
+      type: object
+      description: A stored payment method / wallet entry (modeled).
+      properties:
+        id:
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
+        expMonth:
+          type: integer
+        expYear:
+          type: integer
   responses:
     NotFound:
       description: The requested resource was not found.

@@ -1,0 +1,22 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/subbly/integrations
+checked:
+- https://composio.dev/toolkits/subbly
+- https://monid.ai/tools/subbly
+- https://n8n.io/integrations/subbly/
+- https://zapier.com/apps/subbly/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: subbly
+  url: https://zapier.com/apps/subbly/integrations
+  external_url: http://www.subbly.co/
+  partner_tier: null
+  triggers: []
+  actions: []
+  searches: []
+edges: []
+templates: []

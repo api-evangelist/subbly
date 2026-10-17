@@ -160,49 +160,18 @@ paths:
                       $ref: '#/components/schemas/PaymentMethod'
 components:
   schemas:
-    CustomerInput:
+    Customer:
       type: object
-      description: Customer create / update fields (modeled).
+      description: A customer account (modeled).
       properties:
-        email:
+        id:
           type: string
-        password:
+        email:
           type: string
         firstName:
           type: string
         lastName:
           type: string
-    Address:
-      type: object
-      description: A customer address (modeled).
-      properties:
-        id:
-          type: string
-        line1:
-          type: string
-        line2:
-          type: string
-        city:
-          type: string
-        region:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-    AuthInput:
-      type: object
-      description: Customer authentication request (modeled).
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-        otp:
-          type: string
-        provider:
-          type: string
-          description: For social login, for example google or facebook.
     Error:
       type: object
       properties:
@@ -213,13 +182,13 @@ components:
               type: string
             message:
               type: string
-    Customer:
+    CustomerInput:
       type: object
-      description: A customer account (modeled).
+      description: Customer create / update fields (modeled).
       properties:
-        id:
-          type: string
         email:
+          type: string
+        password:
           type: string
         firstName:
           type: string
@@ -239,13 +208,37 @@ components:
           type: integer
         expYear:
           type: integer
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    AuthInput:
+      type: object
+      description: Customer authentication request (modeled).
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        otp:
+          type: string
+        provider:
+          type: string
+          description: For social login, for example google or facebook.
+    Address:
+      type: object
+      description: A customer address (modeled).
+      properties:
+        id:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        region:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
   parameters:
     Id:
       name: id
@@ -254,6 +247,13 @@ components:
       description: The resource identifier.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

@@ -138,15 +138,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Quote'
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The resource identifier.
+      schema:
+        type: string
   schemas:
-    Quote:
-      type: object
-      description: A computed price quote (modeled).
-      properties:
-        total:
-          type: integer
-        currency:
-          type: string
     BundleQuoteInput:
       type: object
       description: Selected items to quote for a bundle (modeled).
@@ -198,27 +198,27 @@ components:
           type: integer
         maxItems:
           type: integer
+    Quote:
+      type: object
+      description: A computed price quote (modeled).
+      properties:
+        total:
+          type: integer
+        currency:
+          type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key / access token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The resource identifier.
-      schema:
-        type: string
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

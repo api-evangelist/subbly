@@ -1,4 +1,4 @@
-# Subbly (subbly)
+# Subbly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,105 +64,126 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Subbly is a subscription-first commerce platform for building and running subscription boxes, memberships, and recurring-product businesses without code. Beyond its no-code storefront and merchant admin, Subbly ships a developer surface for headless and custom builds.
+Subbly is a subscription-first commerce platform for building and running subscription boxes, memberships, and recurring-product businesses without code. Alongside the no-code storefront and merchant admin, Subbly ships a developer surface for headless and custom builds: the SubblyCart.js embeddable cart widget and the Subbly.js SDK (@subbly/sdk), a browser-side client that talks to Subbly's REST backend to manage products, bundles, carts, checkout and purchase, customers, and subscriptions. Subbly also exposes a public Orders API for integrating directly with any 3PL / fulfillment provider (documentation is provided by Subbly on request), plus an in-app webhook platform for notifying external services of order and subscription events. Subbly does not publish a fully open, self-serve REST reference or an OpenAPI definition; the SDK abstracts the underlying endpoints, so the API surface modeled here is derived from the documented SDK operations and is flagged as modeled.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/subbly/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/subbly/refs/heads/main/apis.yml)
+**Areas:** Subscription · Subscription Commerce · E-Commerce · Subscription Box · Recurring Billing · Headless Commerce · SDK · Webhook
 
-## Access Model (read this first)
+## Subbly on APIs.io
 
-Subbly has a **real but only partially open** developer surface. What is documented and what is not:
+Everything profiled for Subbly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/subbly/](https://apis.io/providers/subbly/)** — or go straight to one of the APIs or properties below.
 
-- **SubblyCart.js** — a client-side embeddable cart widget, loaded from `https://assets.subbly.co/cart/cart-widget.js` and configured with a public `apiKey` from the Subbly admin (Shop Settings). Fully documented at [docs.subbly.dev/reference/cart](https://docs.subbly.dev/reference/cart/).
-- **Subbly.js SDK** (`@subbly/sdk`) — a browser-side JavaScript client that calls Subbly's REST backend to manage products, bundles, carts, checkout/purchase, customers (auth, profiles, addresses, wallet), and subscriptions. Documented at [docs.subbly.dev/reference/subbly-sdk](https://docs.subbly.dev/reference/subbly-sdk/). **The SDK abstracts the underlying REST calls — Subbly does not publish concrete endpoint paths, a base API host, or an OpenAPI definition.**
-- **Orders API (3PL)** — a real public Orders API for integrating Subbly orders directly with any third-party logistics / fulfillment provider. **Subbly provides its documentation on request** rather than publishing it openly, so it is access-gated.
-- **Webhooks** — an in-app webhook platform that notifies external/internal services of order and subscription events, configured in the Subbly admin. Subbly does not publish a formal event catalog or payload schema.
+### APIs (6)
 
-Because Subbly does not publish REST endpoint paths, the OpenAPI and collections in this repo are **modeled** from the documented SDK operations to give the catalog a workable shape. They are clearly flagged as modeled and are **not** an official Subbly REST contract. No endpoints are modeled for the access-gated Orders API or for webhooks.
+- [Subbly Orders API](https://apis.io/apis/subbly/subbly-orders-api/) — Public Orders API for integrating Subbly orders directly with any third-party logistics (3PL) / fulfillment provider. Subbly states it will provide the…
+- [Subbly Webhooks](https://apis.io/apis/subbly/subbly-webhooks/) — In-app webhook platform that notifies external and internal services of Subbly events (order and subscription lifecycle) with configurable conditions and…
+- [Subbly Cart API](https://apis.io/apis/subbly/subbly-cart-api/) — Cart and checkout operations (modeled from the SDK and SubblyCart.js).
+- [Subbly Customers API](https://apis.io/apis/subbly/subbly-customers-api/) — Customer accounts, addresses, and payment methods (modeled from the SDK).
+- [Subbly Products API](https://apis.io/apis/subbly/subbly-products-api/) — Storefront products and bundles (modeled from the SDK).
+- [Subbly Subscriptions API](https://apis.io/apis/subbly/subbly-subscriptions-api/) — Customer subscriptions and preferences (modeled from the SDK).
 
-There is **no documented public WebSocket API** — all of Subbly's surfaces are request/response HTTP.
+### Published properties
 
-## Tags
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Subscriptions
-- Subscription Commerce
-- Ecommerce
-- Subscription Box
-- Recurring Billing
-- Headless Commerce
-- SDK
-- Webhooks
+#### Agentic access (1)
 
-## Timestamps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Created:** 2026-07-10
-- **Modified:** 2026-07-10
+- [Subbly Agentic Access](https://apis.io/agentic-access/subbly/subbly-agentic-access/)
 
-## APIs
+#### Collections (5)
 
-### Subbly Products API
+Postman and Open Collection request collections.
 
-List storefront products, load product variants and parent products, and work with bundles (load bundles, retrieve bundle items, generate bundle quotes). Surfaced through the Subbly.js SDK; endpoints modeled.
+- [Subbly Storefront API (Modeled)](https://apis.io/collections/subbly/open-subbly/)
+- [Subbly Storefront API (Modeled) Cart API](https://apis.io/collections/subbly/open-subbly-cart-api/)
+- [Subbly Storefront API (Modeled) Cart Customers API](https://apis.io/collections/subbly/open-subbly-customers-api/)
+- [Subbly Storefront API (Modeled) Cart Products API](https://apis.io/collections/subbly/open-subbly-products-api/)
+- [Subbly Storefront API (Modeled) Cart Subscriptions API](https://apis.io/collections/subbly/open-subbly-subscriptions-api/)
 
-- **Human URL:** [https://docs.subbly.dev/reference/subbly-sdk/](https://docs.subbly.dev/reference/subbly-sdk/)
+#### Security (2)
 
-### Subbly Subscriptions API
+Authentication, trust centre, and vulnerability disclosure.
 
-Load and update a customer's subscriptions, including bundle selections and survey / preference management. Surfaced through the Subbly.js SDK; endpoints modeled.
+- [Subbly Authentication](https://apis.io/security/subbly/subbly-authentication/)
+- [Subbly Domain Security](https://apis.io/security/subbly/subbly-domain-security/)
 
-- **Human URL:** [https://docs.subbly.dev/reference/subbly-sdk/](https://docs.subbly.dev/reference/subbly-sdk/)
+#### Plans and pricing (1)
 
-### Subbly Customers API
+Published plans, tiers and prices.
 
-Register and authenticate customers (password, OTP, social login, email verification), retrieve and update profiles, manage saved addresses, and manage stored payment methods / wallet. Surfaced through the Subbly.js SDK; endpoints modeled.
+- [Subbly Plans Pricing](https://apis.io/plans/subbly/subbly-plans-pricing/)
 
-- **Human URL:** [https://docs.subbly.dev/reference/subbly-sdk/](https://docs.subbly.dev/reference/subbly-sdk/)
+#### Rate limits (1)
 
-### Subbly Cart and Checkout API
+Published request limits.
 
-Create and update carts, add/update/remove items, apply coupons and gift cards, set shipping methods and gifting dates, process checkout and purchase, and handle payment intents with 3DS verification. Client-side SubblyCart.js and the Subbly.js SDK are documented; server-side endpoints modeled.
+- [Subbly Rate Limits](https://apis.io/rate-limits/subbly/subbly-rate-limits/)
 
-- **Human URL:** [https://docs.subbly.dev/reference/cart/](https://docs.subbly.dev/reference/cart/)
+#### FinOps (1)
 
-### Subbly Orders API
+What the API costs to run, by operation.
 
-Public Orders API for integrating Subbly orders directly with any 3PL / fulfillment provider. Documentation provided by Subbly on request — access-gated, no endpoints modeled.
+- [Subbly Finops](https://apis.io/finops/subbly/subbly-finops/)
 
-- **Human URL:** [https://www.subbly.dev/](https://www.subbly.dev/)
+## Where to find this API
 
-### Subbly Webhooks
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-In-app webhook platform notifying external/internal services of order and subscription events with configurable conditions and variables. Configured in the Subbly admin; no published event schema.
-
-- **Human URL:** [https://www.subbly.co/product](https://www.subbly.co/product)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/subbly)
 - [Website](https://www.subbly.co/)
 - [Documentation](https://docs.subbly.dev/)
-- [Developer Portal](https://www.subbly.dev/)
-- [SDK](https://docs.subbly.dev/reference/subbly-sdk/)
 - [Pricing](https://www.subbly.co/pricing)
-- [Plans](plans/subbly-plans-pricing.yml)
-- [Rate Limits](rate-limits/subbly-rate-limits.yml)
-- [Fin Ops](finops/subbly-finops.yml)
-- [Support / Help Center](https://support.subbly.co/)
+- [Blog](https://www.subbly.co/blog/)
 
-## Pricing (as of 2026-07-10)
+## API Evangelist rating
 
-Subbly bills a monthly platform fee per plan tier plus a Subbly transaction fee (a percentage of each transaction), on top of the payment processor's own fees. Developer access is bundled with the plan.
+**Kin Score 18.7** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-| Plan | Monthly | Annual (effective/mo) | Subbly txn fee (Stripe) | Subbly txn fee (PayPal/Braintree) |
-|------|---------|-----------------------|-------------------------|-----------------------------------|
-| Lite | $19 | ~$14.25 ($171/yr) | 2% | 2.25% |
-| Basic | $39 | ~$29.25 ($351/yr) | 1% | 1.25% |
-| Subbly | $79 | ~$59.25 ($711/yr) | 1% | 1.25% |
-| Advanced | $159 | ~$119.25 ($1,431/yr) | 1% | 1% |
-| Subbly X (Enterprise) | from $499 | custom | 0.25–1% | 0.25–1% |
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 18.4 |
 
-Some tiers also carry a small fixed per-transaction component (e.g. +$0.19 on Lite, +$0.15 on higher tiers) per the pricing page. Verify current numbers at [subbly.co/pricing](https://www.subbly.co/pricing).
+**Agent readiness 17.9** — agent-aware
 
-## Maintainers
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/subbly/](https://apis.io/providers/subbly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Subbly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/subbly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
